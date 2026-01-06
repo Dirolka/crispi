@@ -193,14 +193,14 @@
 
 
 <header id="headerAdapt" class="headerAdapt__wrapper headerAdapt__wrapper--withBorder">
-  <div class="headerAdapt__title">Kaspi.kz</div>
+  <div class="headerAdapt__title" id="headerTitle">Kaspi.kz</div>
 </header>
 
 <div class="tabs">
-  <a class="tab _main _active" href="/">
+  <div class="tab _main _active" data-tab="main">
     <span class="tab__icon"></span>
     <span class="tab__title">Главная</span>
-  </a>
+  </div>
   <div class="tab _qr" data-alert-id="qr">
     <span class="tab__icon"></span>
     <span class="tab__title">Kaspi QR</span>
@@ -209,13 +209,76 @@
     <span class="tab__icon"></span>
     <span class="tab__title">Сообщения</span>
   </div>
-  <a class="tab _services " href="service.html">
+  <div class="tab _services" data-tab="services">
     <span class="tab__icon"></span>
     <span class="tab__title">Сервисы</span>
-  </a>
+  </div>
 </div>
 
 <main id="main" class="main__wrapper">
+
+  <!-- Services Page (hidden by default) -->
+  <div id="servicesPage" class="services-page" style="display: none;">
+    <div class="services">
+      <a href="https://kaspi.kz/shop/?source=kaspikz&ref=startOurProductsShop&startedFrom=services&ap-product=shop" class="services__item _shop">
+        <span class="services__icon"></span>
+        <span class="services__title">Магазин</span>
+      </a>
+      <div class="services__item _bank" data-alert-id="myBank">
+        <span class="services__icon"></span>
+        <span class="services__title">Мой Банк</span>
+      </div>
+      <div class="services__item _payment" data-alert-id="payments">
+        <span class="services__icon"></span>
+        <span class="services__title">Платежи</span>
+      </div>
+      <div class="services__item _transfers" data-alert-id="transfers">
+        <span class="services__icon"></span>
+        <span class="services__title">Переводы</span>
+      </div>
+      <div class="services__item _promo" data-alert-id="promo">
+        <span class="services__icon"></span>
+        <span class="services__title">Акции</span>
+      </div>
+      <div class="services__item _travel" data-alert-id="travel">
+        <span class="services__icon"></span>
+        <span class="services__title">Travel</span>
+      </div>
+      <div class="services__item _public-services" data-alert-id="publicService">
+        <span class="services__icon"></span>
+        <span class="services__title">Госуслуги</span>
+      </div>
+      <a href="https://obyavleniya.kaspi.kz/?ref=startOurProducts&startedFrom=services&ap-product=ads" class="services__item _ads">
+        <span class="services__icon"></span>
+        <span class="services__title">Объявления</span>
+      </a>
+      <a href="https://kaspi.kz/guide?ref=startOurProducts&startedFrom=services&ap-product=publicservices" class="services__item _guide">
+        <span class="services__icon"></span>
+        <span class="services__title">Гид</span>
+      </a>
+      <div class="services__item _maps" data-alert-id="maps">
+        <span class="services__icon"></span>
+        <span class="services__title">Kaspi Maps</span>
+      </div>
+    </div>
+
+    <div class="partners-services">
+      <h3 class="partners-services__header">Партнерские сервисы</h3>
+      <div class="partners-services__item _magnum" data-alert-id="magnum">
+        <div class="partners-services__icon-wrapper">
+          <img src="https://static.cdn-kaspi.kz/kkz/mainmvc/reswp/img/start/appServices/magnum.png" class="partners-services__icon"/>
+        </div>
+        <div class="partners-services__text-wrapper">
+          <h4 class="partners-services__title">Magnum</h4>
+          <p class="partners-services__text">Продукты с бесплатной доставкой</p>
+        </div>
+        <div class="partners-services__arrow"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Page -->
+  <div id="mainPage" class="main-page">
 
 
 
@@ -1491,6 +1554,8 @@
       </section>
     </div>
   </div>
+  </div>
+  <!-- End Main Page -->
 
 </main>
 
@@ -1622,6 +1687,51 @@
 <script  src="https://static.cdn-kaspi.kz/kkz/mainmvc/reswp/bundles/js/end.79f1ab7476f3cfcf.js"></script>
 <script  src="https://static.cdn-kaspi.kz/kkz/mainmvc/reswp/bundles/js/end_mobile.7781d44d7d13439e.js"></script>
 
+<script>
+  // Tab switching functionality
+  (function() {
+    var mainPage = document.getElementById('mainPage');
+    var servicesPage = document.getElementById('servicesPage');
+    var headerTitle = document.getElementById('headerTitle');
+    var tabs = document.querySelectorAll('.tab[data-tab]');
+    
+    function switchTab(tabName) {
+      // Hide all pages
+      if (mainPage) mainPage.style.display = 'none';
+      if (servicesPage) servicesPage.style.display = 'none';
+      
+      // Remove active class from all tabs
+      tabs.forEach(function(tab) {
+        tab.classList.remove('_active');
+      });
+      
+      // Show selected page and activate tab
+      if (tabName === 'main') {
+        if (mainPage) mainPage.style.display = 'block';
+        if (headerTitle) headerTitle.textContent = 'Kaspi.kz';
+        document.querySelector('.tab[data-tab="main"]').classList.add('_active');
+      } else if (tabName === 'services') {
+        if (servicesPage) servicesPage.style.display = 'block';
+        if (headerTitle) headerTitle.textContent = 'Сервисы';
+        document.querySelector('.tab[data-tab="services"]').classList.add('_active');
+      }
+    }
+    
+    // Add click handlers to tabs
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function(e) {
+        e.preventDefault();
+        var tabName = this.getAttribute('data-tab');
+        if (tabName) {
+          switchTab(tabName);
+        }
+      });
+    });
+    
+    // Initialize: show main page by default
+    if (mainPage) mainPage.style.display = 'block';
+  })();
+</script>
 
 </body>
 </html>
