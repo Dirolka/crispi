@@ -2,6 +2,7 @@
   "name": "Kaspi.kz – Магазин, Платежи, Мой Банк",
   "short_name": "Kaspi.kz",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#f14635",
