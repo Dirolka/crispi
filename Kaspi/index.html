@@ -151,6 +151,219 @@
       background: #DC3545;
       color: #f0f0f0;
     }
+
+    /* User Profile Styles */
+    .user-profile-section {
+      padding: 2px;
+      background: #fff;
+      margin-bottom: 6px;
+    }
+
+    .user-profile__wrapper {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .user-profile__wrapper:active {
+      background-color: #f5f5f5;
+    }
+
+    .user-profile__avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .user-profile__avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .user-profile__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-profile__name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .user-profile__settings {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .user-profile__arrow {
+      font-size: 30px;
+      color: #999;
+      margin-left: 8px;
+    }
+
+    /* Profile Modal Styles */
+    .profile-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+    }
+
+    .profile-modal__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .profile-modal__content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .profile-modal__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1;
+    }
+
+    .profile-modal__title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .profile-modal__close {
+      background: none;
+      border: none;
+      font-size: 32px;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-modal__close:active {
+      color: #333;
+    }
+
+    .profile-form {
+      padding: 20px;
+    }
+
+    .profile-form__field {
+      margin-bottom: 20px;
+    }
+
+    .profile-form__label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .profile-form__input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #333;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+
+    .profile-form__input:focus {
+      outline: none;
+      border-color: #f14635;
+    }
+
+    .profile-form__input::placeholder {
+      color: #999;
+    }
+
+    .profile-form__actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .profile-form__submit,
+    .profile-form__cancel {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .profile-form__submit {
+      background: #f14635;
+      color: #fff;
+    }
+
+    .profile-form__submit:active {
+      background: #d6392a;
+    }
+
+    .profile-form__cancel {
+      background: #f5f5f5;
+      color: #666;
+    }
+
+    .profile-form__cancel:active {
+      background: #e0e0e0;
+    }
   </style>
 
 
@@ -219,6 +432,20 @@
 
   <!-- Services Page (hidden by default) -->
   <div id="servicesPage" class="services-page" style="display: none;">
+    <!-- User Profile Section -->
+    <div class="user-profile-section">
+      <div class="user-profile__wrapper" id="userProfileBtn">
+        <div class="user-profile__avatar">
+          <img class="user-profile__avatar-img" src="1640528649_39-abrakadabra-fun-p-serii-chelovek-na-avu-44.jpg" alt="User avatar" />
+        </div>
+        <div class="user-profile__info">
+          <div class="user-profile__name" id="userProfileName">Вход/Регистрация</div>
+          <div class="user-profile__settings">Настройки</div>
+        </div>
+        <div class="user-profile__arrow">›</div>
+      </div>
+    </div>
+
     <div class="services">
       <a href="https://kaspi.kz/shop/?source=kaspikz&ref=startOurProductsShop&startedFrom=services&ap-product=shop" class="services__item _shop">
         <span class="services__icon"></span>
@@ -1684,6 +1911,53 @@
 
 
 
+<!-- Profile Modal -->
+<div id="profileModal" class="profile-modal" style="display: none;">
+  <div class="profile-modal__overlay"></div>
+  <div class="profile-modal__content">
+    <div class="profile-modal__header">
+      <h2 class="profile-modal__title">Профиль</h2>
+      <button class="profile-modal__close" id="profileModalClose">&times;</button>
+    </div>
+    <form class="profile-form" id="profileForm">
+      <div class="profile-form__field">
+        <label class="profile-form__label" for="fullName">ФИО</label>
+        <input type="text" class="profile-form__input" id="fullName" name="fullName" placeholder="Введите ФИО" required>
+      </div>
+      
+      <div class="profile-form__field">
+        <label class="profile-form__label" for="iin">ИИН</label>
+        <input type="text" class="profile-form__input" id="iin" name="iin" placeholder="Введите ИИН" maxlength="12" required>
+      </div>
+      
+      <div class="profile-form__field">
+        <label class="profile-form__label" for="birthDate">Дата рождения</label>
+        <input type="date" class="profile-form__input" id="birthDate" name="birthDate" required>
+      </div>
+      
+      <div class="profile-form__field">
+        <label class="profile-form__label" for="docNumber">Номер документа</label>
+        <input type="text" class="profile-form__input" id="docNumber" name="docNumber" placeholder="Введите номер документа" required>
+      </div>
+      
+      <div class="profile-form__field">
+        <label class="profile-form__label" for="docIssueDate">Дата выдачи</label>
+        <input type="date" class="profile-form__input" id="docIssueDate" name="docIssueDate" required>
+      </div>
+      
+      <div class="profile-form__field">
+        <label class="profile-form__label" for="docExpiryDate">Срок действия</label>
+        <input type="date" class="profile-form__input" id="docExpiryDate" name="docExpiryDate" required>
+      </div>
+      
+      <div class="profile-form__actions">
+        <button type="submit" class="profile-form__submit">Сохранить</button>
+        <button type="button" class="profile-form__cancel" id="profileFormCancel">Отмена</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script  src="https://static.cdn-kaspi.kz/kkz/mainmvc/reswp/bundles/js/end.79f1ab7476f3cfcf.js"></script>
 <script  src="https://static.cdn-kaspi.kz/kkz/mainmvc/reswp/bundles/js/end_mobile.7781d44d7d13439e.js"></script>
 
@@ -1730,6 +2004,120 @@
     
     // Initialize: show main page by default
     if (mainPage) mainPage.style.display = 'block';
+  })();
+
+  // Profile Modal functionality
+  (function() {
+    var profileBtn = document.getElementById('userProfileBtn');
+    var profileModal = document.getElementById('profileModal');
+    var profileModalClose = document.getElementById('profileModalClose');
+    var profileFormCancel = document.getElementById('profileFormCancel');
+    var profileForm = document.getElementById('profileForm');
+    var profileName = document.getElementById('userProfileName');
+    var overlay = profileModal ? profileModal.querySelector('.profile-modal__overlay') : null;
+
+    function openProfileModal() {
+      if (profileModal) {
+        profileModal.style.display = 'block';
+        // Load saved data if exists
+        loadProfileData();
+      }
+    }
+
+    function closeProfileModal() {
+      if (profileModal) {
+        profileModal.style.display = 'none';
+      }
+    }
+
+    function loadProfileData() {
+      var savedData = localStorage.getItem('userProfile');
+      if (savedData) {
+        try {
+          var data = JSON.parse(savedData);
+          document.getElementById('fullName').value = data.fullName || '';
+          document.getElementById('iin').value = data.iin || '';
+          document.getElementById('birthDate').value = data.birthDate || '';
+          document.getElementById('docNumber').value = data.docNumber || '';
+          document.getElementById('docIssueDate').value = data.docIssueDate || '';
+          document.getElementById('docExpiryDate').value = data.docExpiryDate || '';
+          
+          // Update profile name display
+          if (data.fullName && profileName) {
+            var nameParts = data.fullName.split(' ');
+            if (nameParts.length >= 2) {
+              profileName.textContent = nameParts[0] + ' ' + nameParts[1].charAt(0) + '.';
+            } else {
+              profileName.textContent = data.fullName;
+            }
+          }
+        } catch (e) {
+          console.error('Error loading profile data:', e);
+        }
+      }
+    }
+
+    function saveProfileData() {
+      var formData = {
+        fullName: document.getElementById('fullName').value,
+        iin: document.getElementById('iin').value,
+        birthDate: document.getElementById('birthDate').value,
+        docNumber: document.getElementById('docNumber').value,
+        docIssueDate: document.getElementById('docIssueDate').value,
+        docExpiryDate: document.getElementById('docExpiryDate').value
+      };
+      
+      localStorage.setItem('userProfile', JSON.stringify(formData));
+      
+      // Update profile name display
+      if (formData.fullName && profileName) {
+        var nameParts = formData.fullName.split(' ');
+        if (nameParts.length >= 2) {
+          profileName.textContent = nameParts[0] + ' ' + nameParts[1].charAt(0) + '.';
+        } else {
+          profileName.textContent = formData.fullName;
+        }
+      }
+    }
+
+    // Event listeners
+    if (profileBtn) {
+      profileBtn.addEventListener('click', openProfileModal);
+    }
+
+    if (profileModalClose) {
+      profileModalClose.addEventListener('click', closeProfileModal);
+    }
+
+    if (profileFormCancel) {
+      profileFormCancel.addEventListener('click', closeProfileModal);
+    }
+
+    if (overlay) {
+      overlay.addEventListener('click', closeProfileModal);
+    }
+
+    if (profileForm) {
+      profileForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        saveProfileData();
+        closeProfileModal();
+        alert('Данные сохранены!');
+      });
+    }
+
+    // Format IIN input (only numbers, max 12 digits)
+    var iinInput = document.getElementById('iin');
+    if (iinInput) {
+      iinInput.addEventListener('input', function(e) {
+        this.value = this.value.replace(/\D/g, '').slice(0, 12);
+      });
+    }
+
+    // Load profile data on page load
+    if (profileName) {
+      loadProfileData();
+    }
   })();
 </script>
 
