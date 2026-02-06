@@ -73,8 +73,8 @@
 
         card.addEventListener('click', () => {
             clickCount++;
-            if (clickCount < 50) {
-                promptEl.textContent = `Кликай ${50 - clickCount} раз`;
+            if (clickCount < 25) {
+                promptEl.textContent = `Кликай ${25 - clickCount} раз`;
             } else {
                 promptEl.classList.add('hidden');
                 textEl.classList.remove('hidden');
