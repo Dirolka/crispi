@@ -364,6 +364,309 @@
     .profile-form__cancel:active {
       background: #e0e0e0;
     }
+
+    /* Public Services Page Styles */
+    .public-services-page {
+      display: none;
+      background: #f2f2f7;
+      min-height: 100vh;
+      padding-bottom: 24px;
+    }
+
+    .public-services__header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #f2f2f7;
+      padding: 10px 12px 8px;
+    }
+
+    .public-services__header-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 36px;
+      margin-bottom: 10px;
+    }
+
+    .public-services__back {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 36px;
+      width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 22px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .public-services__title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .public-services__tabs-panel {
+      background: #fff;
+      border-radius: 16px;
+      padding: 3px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+
+    .public-services__tabs {
+      display: flex;
+      background: transparent;
+      border-radius: 12px;
+      padding: 0;
+    }
+
+    .public-services__tab {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 10px 8px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .public-services__tab._active {
+      background: #f2f2f7;
+      font-weight: 600;
+    }
+
+    .public-services__search {
+      margin: 10px 12px 12px;
+      background: rgba(118,118,128,0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      color: rgba(60,60,67,0.1);
+      gap: 8px;
+    }
+
+    .public-services__search-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      background-color: rgba(60,60,67,0.1);
+      -webkit-mask-image: url(https://static.cdn-kaspi.kz/ds/core-icons/search-500.svg);
+      mask-image: url(https://static.cdn-kaspi.kz/ds/core-icons/search-500.svg);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+    }
+
+    .public-services__search input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 15px;
+      color: #111;
+    }
+
+    /*.public-services__content {*/
+    /*  padding: 0 12px;*/
+    /*}*/
+
+    .public-services__documents-panel {
+      background: #fff;
+      border-radius: 16px;
+      padding: 9px;
+      margin-bottom: 10px;
+    }
+
+    .public-services__card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .public-services__card {
+      background: rgba(118,118,128,0.12);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 86px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .public-services__card-icon {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 34px;
+      height: 22px;
+      border-radius: 4px;
+      background: #d9d9dd;
+    }
+
+    .public-services__card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      line-height: 1.2;
+    }
+
+    .public-services__all-docs {
+      background: transparent;
+      border-radius: 0;
+      padding: 12px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0;
+      border-top: 1px solid rgba(60,60,67,0.12);
+    }
+
+    .public-services__all-docs a {
+      color: #0089D0;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .public-services__all-docs span {
+      color: #2f6df6;
+      font-size: 30px;
+      line-height: 0;
+    }
+
+    .public-services__categories {
+      background: #fff;
+      border-radius: 14px;
+      padding: 10px 10px 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      margin-bottom: 10px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .public-services__categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .public-services__category {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 86px;
+      padding: 8px 6px;
+      border-radius: 12px;
+      color: #333;
+      font-size: 12px;
+      gap: 6px;
+    }
+
+    .public-services__category._active {
+      color: #d6392a;
+      font-weight: 600;
+    }
+
+    .public-services__category._active::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: #d6392a;
+      border-radius: 2px;
+      margin-top: 2px;
+    }
+
+    .public-services__category-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: rgba(118,118,128,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #8e8e93;
+    }
+
+    .public-services__section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111;
+      margin: 14px 4px 10px;
+    }
+
+    .public-services__list {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .public-services__list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 14px;
+      border-bottom: 1px solid rgba(60,60,67,0.12);
+    }
+
+    .public-services__list-item:last-child {
+      border-bottom: none;
+    }
+
+    .public-services__list-ico {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d6392a;
+      background: rgba(214,57,42,0.10);
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    .public-services__list-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .public-services__list-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111;
+      margin: 0;
+    }
+
+    .public-services__list-subtitle {
+      font-size: 13px;
+      color: rgba(60,60,67,0.6);
+      margin-top: 4px;
+    }
+
+    .public-services__list-arrow {
+      color: rgba(60,60,67,0.4);
+      font-size: 22px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
   </style>
 
 
@@ -404,7 +707,6 @@
 <p class="pers-info" hidden></p>
 
 
-
 <header id="headerAdapt" class="headerAdapt__wrapper headerAdapt__wrapper--withBorder">
   <div class="headerAdapt__title" id="headerTitle">Kaspi.kz</div>
 </header>
@@ -429,6 +731,100 @@
 </div>
 
 <main id="main" class="main__wrapper">
+
+  <!-- Public Services Page (hidden by default) -->
+  <div id="publicServicesPage" class="public-services-page">
+    <div class="public-services__header">
+      <div class="public-services__header-row">
+        <button class="public-services__back" id="publicServicesBack" type="button">‹</button>
+        <h2 class="public-services__title">Госуслуги</h2>
+      </div>
+      <div class="public-services__tabs-panel">
+        <div class="public-services__tabs" role="tablist">
+          <button class="public-services__tab _active" id="publicServicesTabAll" type="button">Все услуги</button>
+          <button class="public-services__tab" id="publicServicesTabMy" type="button">Мои заявки</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="public-services__search">
+      <span class="public-services__search-icon" aria-hidden="true"></span>
+      <input type="text" placeholder="Поиск по Госуслугам" aria-label="Поиск по Госуслугам" />
+    </div>
+
+    <div class="public-services__content">
+      <div class="public-services__documents-panel">
+        <div class="public-services__card-grid" id="publicServicesCards">
+          <div class="public-services__card">
+            <div class="public-services__card-icon"></div>
+            <div class="public-services__card-title">Удостоверение<br/>личности</div>
+          </div>
+          <div class="public-services__card">
+            <div class="public-services__card-icon" style="background:#bfe7f6;"></div>
+            <div class="public-services__card-title">Социальный ID</div>
+          </div>
+          <div class="public-services__card">
+            <div class="public-services__card-icon" style="background:#243b7a;"></div>
+            <div class="public-services__card-title">Студенческий<br/>билет</div>
+          </div>
+        </div>
+
+        <div class="public-services__all-docs">
+          <a href="#" onclick="return false;">Все документы</a>
+          <span>›</span>
+        </div>
+      </div>
+
+      <div class="public-services__categories" id="publicServicesCategories">
+        <div class="public-services__category _active" data-cat="popular">
+          <div class="public-services__category-icon">📣</div>
+          Популярные
+        </div>
+        <div class="public-services__category" data-cat="certs">
+          <div class="public-services__category-icon">📄</div>
+          Справки
+        </div>
+        <div class="public-services__category" data-cat="auto">
+          <div class="public-services__category-icon">🚗</div>
+          Авто
+        </div>
+        <div class="public-services__category" data-cat="home">
+          <div class="public-services__category-icon">🏠</div>
+          Жилье
+        </div>
+        <div class="public-services__category" data-cat="more">
+          <div class="public-services__category-icon">⋯</div>
+          Еще
+        </div>
+      </div>
+
+      <div class="public-services__section-title">Популярные услуги</div>
+      <div class="public-services__list">
+        <div class="public-services__list-item">
+          <div class="public-services__list-ico">🚘</div>
+          <div class="public-services__list-text">
+            <div class="public-services__list-title">Переоформление автомобиля</div>
+          </div>
+          <div class="public-services__list-arrow">›</div>
+        </div>
+        <div class="public-services__list-item">
+          <div class="public-services__list-ico">🏠</div>
+          <div class="public-services__list-text">
+            <div class="public-services__list-title">Прописка</div>
+            <div class="public-services__list-subtitle">Временная и постоянная</div>
+          </div>
+          <div class="public-services__list-arrow">›</div>
+        </div>
+        <div class="public-services__list-item">
+          <div class="public-services__list-ico">🪪</div>
+          <div class="public-services__list-text">
+            <div class="public-services__list-title">Замена водительских прав</div>
+          </div>
+          <div class="public-services__list-arrow">›</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Services Page (hidden by default) -->
   <div id="servicesPage" class="services-page" style="display: none;">
@@ -599,16 +995,7 @@
                 </a>
               </li>
 
-
-              <div class="alert-open-app alert-open-app__overflow">
-                <div class="alert-open-app__wrapper">
-                  <img class="alert-open-app__logo" src="https://static.cdn-kaspi.kz/kkz/mainmvc/reswp/img/shared/logo-a.png" alt="" />
-                  <div class="alert-open-app__title">
-                  </div>
-                  <a href="#" class="alert-open-app__link"> Открыть приложение</a>
-                  <div class="alert-open-app__button">Отмена </div>
-                </div>
-              </div>
+              
 
               <div class="alert-open-app__text-wrapper" data-bind-id="search">
                 <div class="alert-open-app__title">
@@ -2004,6 +2391,82 @@
     
     // Initialize: show main page by default
     if (mainPage) mainPage.style.display = 'block';
+  })();
+
+  // Public Services Page open/close
+  (function() {
+    var header = document.getElementById('headerAdapt');
+    var tabsWrapper = document.querySelector('.tabs');
+    var mainPage = document.getElementById('mainPage');
+    var servicesPage = document.getElementById('servicesPage');
+    var publicServicesPage = document.getElementById('publicServicesPage');
+    var backBtn = document.getElementById('publicServicesBack');
+
+    function setActiveTab(tabName) {
+      var tabs = document.querySelectorAll('.tab[data-tab]');
+      tabs.forEach(function(t) { t.classList.remove('_active'); });
+      var el = document.querySelector('.tab[data-tab="' + tabName + '"]');
+      if (el) el.classList.add('_active');
+    }
+
+    function openPublicServices() {
+      if (!publicServicesPage) return;
+      if (header) header.style.display = 'none';
+      if (tabsWrapper) tabsWrapper.style.display = 'none';
+      if (mainPage) mainPage.style.display = 'none';
+      if (servicesPage) servicesPage.style.display = 'none';
+      publicServicesPage.style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    function closePublicServices() {
+      if (!publicServicesPage) return;
+      publicServicesPage.style.display = 'none';
+      if (header) header.style.display = '';
+      if (tabsWrapper) tabsWrapper.style.display = '';
+      if (mainPage) mainPage.style.display = 'none';
+      if (servicesPage) servicesPage.style.display = 'block';
+      var headerTitle = document.getElementById('headerTitle');
+      if (headerTitle) headerTitle.textContent = 'Сервисы';
+      setActiveTab('services');
+      window.scrollTo(0, 0);
+    }
+
+    // Bind all triggers on page (services tile, main grid tile, menu item)
+    var triggers = document.querySelectorAll('[data-alert-id="publicService"]');
+    triggers.forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPublicServices();
+      });
+    });
+
+    if (backBtn) {
+      backBtn.addEventListener('click', closePublicServices);
+    }
+
+    // Category switching underline
+    var categories = document.getElementById('publicServicesCategories');
+    if (categories) {
+      categories.addEventListener('click', function(e) {
+        var item = e.target.closest('.public-services__category');
+        if (!item) return;
+        categories.querySelectorAll('.public-services__category').forEach(function(c) {
+          c.classList.remove('_active');
+        });
+        item.classList.add('_active');
+      });
+    }
+
+    // Tabs switching (visual only)
+    var tabAll = document.getElementById('publicServicesTabAll');
+    var tabMy = document.getElementById('publicServicesTabMy');
+    function setPublicTab(active) {
+      if (tabAll) tabAll.classList.toggle('_active', active === 'all');
+      if (tabMy) tabMy.classList.toggle('_active', active === 'my');
+    }
+    if (tabAll) tabAll.addEventListener('click', function() { setPublicTab('all'); });
+    if (tabMy) tabMy.addEventListener('click', function() { setPublicTab('my'); });
   })();
 
   // Profile Modal functionality
