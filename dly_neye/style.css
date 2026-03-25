@@ -60,7 +60,14 @@ html, body {
         0 8px 32px rgba(0, 0, 0, 0.12),
         0 2px 8px rgba(0, 0, 0, 0.08);
 }
-
+.public-services__card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3c3c43;
+    line-height: 1.22;
+    letter-spacing: -0.1px;
+    margin-top: 46px;
+}
 .card-prompt {
     margin: 0;
     font-size: 30px;
