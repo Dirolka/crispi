@@ -766,6 +766,22 @@
       line-height: 1;
       flex-shrink: 0;
     }
+
+    .tabs {
+      position: fixed;
+      bottom: 15px !important;
+      background: #fff;
+    }
+
+    .tabs::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      height: 15px;
+      background: #fff;
+    }
   </style>
 
 
@@ -2277,80 +2293,6 @@
   <!-- End Main Page -->
 
 </main>
-
-
-
-
-<footer id="footer" class="footer__wrapper">
-  <div class="grid__container">
-    <div class="grid__row">
-      <div class="grid__full-24 footer__inner">
-        <div id="footerCopyright" class="footer__text">
-          <div class="footer__text">© 2012-2026 гг. АО «Kaspi Bank»,</div>
-
-          <a href="https://www.kaspibank.kz/news/file/122416118144.pdf" download target="_blank" class="footer__link">
-            <br/> Лицензия на проведение банковских и иных  <br/> операций и деятельности на рынке ценных бумаг  <br/>  №1.2.245/61 от 03.02.2020, выданная Агентством  <br/> Республики Казахстан по регулированию и  <br/>развитию финансового рынка <br/>
-          </a>
-          <br />
-
-          <a href="https://job.kaspi.kz/" class="footer__link">Работа в Kaspi.kz</a>
-
-          <div class="footer__text">
-            <a href="https://www.kaspibank.kz?s=kaspi" class="footer__link">Корпоративный сайт</a>
-          </div>
-
-          <a href="https://kaspi.kz/Terms" class="footer__link">Пользовательское соглашение.</a>
-
-
-          <div class="footerInvestors__wrapper _bottom">
-            <a href="https://ir.kaspi.kz/" class="footerInvestors__link">Investor Relations</a>
-            <div class="footerBusiness__wrapper">
-              <a href="https://pay.kaspi.kz" class="footerBusiness__link">Kaspi Pay</a>
-            </div>
-          </div>
-        </div>
-
-        <div id="footerSocials" class="footerSocials__wrapper">
-          <div class="footerSocials__inner">
-            <a href="https://www.facebook.com/Kaspi.kz" class="footerSocials__item footerSocials__item--fb" target="_blank" data-ddl-label="Facebook"><span></span></a>
-            <a href="https://vk.com/kaspikz" class="footerSocials__item footerSocials__item--vk" target="_blank" data-ddl-label="Vk"><span></span></a>
-            <a href="https://twitter.com/Kaspi_kz" class="footerSocials__item footerSocials__item--twt" target="_blank" data-ddl-label="Twitter"><span></span></a>
-            <a href="https://www.instagram.com/kaspi.kz/" class="footerSocials__item footerSocials__item--insta" target="_blank" data-ddl-label="Instagram"><span></span></a>
-            <a href="https://ok.ru/kaspi.kz" class="footerSocials__item footerSocials__item--ok" target="_blank" data-ddl-label="Ok"><span></span></a>
-            <a href="https://youtube.com/kaspibank" class="footerSocials__item footerSocials__item--yt" target="_blank" data-ddl-label="Youtube"><span></span></a>
-            <a href="https://t.me/kaspikz" class="footerSocials__item footerSocials__item--teleg" target="_blank" data-ddl-label="Telegram"><span></span></a>
-          </div>
-        </div>
-
-        <div id="footerAPPs" class="footerAPPs__wrapper">
-          <div class="footerAPPs__inner">
-            <a class="footerAPPs__link footerAPPs__link--ios" href="https://itunes.apple.com/app/id1195076505"></a>
-            <a class="footerAPPs__link footerAPPs__link--android" href="https://play.google.com/store/apps/details?id=kz.kaspi.mobile"></a>
-            <a class="footerAPPs__link footerAPPs__link--huawei" href="https://appgallery.huawei.com/#/app/C102954329"></a>
-          </div>
-        </div>
-
-
-        <div id="footerGuidesForAllProductsAndCall" class="footer__text">
-          <div class="footerGuidesForAllProductsAndCall__inner">
-            <a href="https://kaspi.kz/guide" class="footer__link">Гид по всем продуктам Kaspi.</a>
-            <div class="footerCall__wrapper">
-                            <span class="footerCall__num">
-                                <span class="footerCall__num__icon"></span>
-                                9999
-                            </span>
-              <span class="footerCall__text">Бесплатно <br/> с мобильного</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-
-
-
 <nav id="kaspiMenuAdapt" class="kaspiMenu__wrapper">
   <div class="kaspiMenu__inner">
     <div class="kaspiMenu__items">
