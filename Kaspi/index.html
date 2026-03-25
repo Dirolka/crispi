@@ -371,6 +371,7 @@
       background: #f4f4f6;
       min-height: 100vh;
       padding-bottom: 78px;
+      margin-top: -44px;
     }
 
     .public-services__header {
@@ -827,7 +828,6 @@
     <span class="tab__title">Сервисы</span>
   </div>
 </div>
-
 <main id="main" class="main__wrapper">
 
   <!-- Public Services Page (hidden by default) -->
@@ -2517,10 +2517,11 @@
     function openPublicServices() {
       if (!publicServicesPage) return;
       if (header) header.style.display = 'none';
-      if (tabsWrapper) tabsWrapper.style.display = 'none';
+      if (tabsWrapper) tabsWrapper.style.display = '';
       if (mainPage) mainPage.style.display = 'none';
       if (servicesPage) servicesPage.style.display = 'none';
       publicServicesPage.style.display = 'block';
+      setActiveTab('services');
       window.scrollTo(0, 0);
     }
 
