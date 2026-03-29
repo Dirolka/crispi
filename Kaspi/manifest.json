@@ -8,17 +8,17 @@
   "theme_color": "#f14635",
   "icons": [
     {
-      "src": "/favicon/favicon-192x192.png?v=2",
+      "src": "image/logo kaspi.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/favicon/favicon-512x512.png?v=2",
+      "src": "image/logo kaspi.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "/favicon/apple-touch-icon-180x180.png?v=2",
+      "src": "image/logo kaspi.png",
       "sizes": "180x180",
       "type": "image/png"
     }
