@@ -616,6 +616,14 @@
       filter: brightness(0) invert(1);
     }
 
+    .identity-service-modal__button-image-icon {
+      width: 20px;
+      height: 20px;
+      display: block;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
     .identity-service-modal__button-icon--qr {
       width: 18px;
       height: 18px;
@@ -2755,7 +2763,7 @@
       </button>
       <button class="identity-service-modal__button identity-service-modal__button--secondary" id="identitySendDocumentButton" type="button">
         <span class="identity-service-modal__button-inner">
-          <span class="identity-service-modal__button-icon identity-service-modal__button-icon--share" aria-hidden="true"></span>
+          <img class="identity-service-modal__button-image-icon" src="image/Без имени-1.png" alt="" aria-hidden="true" />
           <span>Отправить документ</span>
         </span>
       </button>
@@ -2763,7 +2771,7 @@
     <div class="identity-service-modal__actions-group" id="identityRequisitesActions" hidden>
       <button class="identity-service-modal__button identity-service-modal__button--secondary" id="identityServiceModalAction" type="button">
         <span class="identity-service-modal__button-inner">
-          <span class="identity-service-modal__button-icon identity-service-modal__button-icon--share" aria-hidden="true"></span>
+          <img class="identity-service-modal__button-image-icon" src="image/Без имени-1.png" alt="" aria-hidden="true" />
           <span>Отправить реквизиты</span>
         </span>
       </button>
