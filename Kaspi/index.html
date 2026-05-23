@@ -2696,7 +2696,7 @@
             <img
               id="identityViewerImage"
               class="identity-service-modal__image"
-              src="image/тема.jpg"
+              src="image/061230551001-20260107034111959 (1)_page-0001.jpg"
               alt="Удостоверение личности"
             />
           </div>
@@ -2706,42 +2706,42 @@
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">ФИО</p>
-                <p class="identity-service-modal__field-value">Маденият Темірлан Бейбітұлы</p>
+                <p class="identity-service-modal__field-value">Жолдубаев Дияр Ержанович</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">ИИН</p>
-                <p class="identity-service-modal__field-value">040428551302</p>
+                <p class="identity-service-modal__field-value">031230551001</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Дата рождения</p>
-                <p class="identity-service-modal__field-value">28.04.2004</p>
+                <p class="identity-service-modal__field-value">30.12.2003</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Номер документа</p>
-                <p class="identity-service-modal__field-value">053672740</p>
+                <p class="identity-service-modal__field-value">0554465326</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Дата выдачи</p>
-                <p class="identity-service-modal__field-value">05.09.2020</p>
+                <p class="identity-service-modal__field-value">11.01.2020</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Срок действия</p>
-                <p class="identity-service-modal__field-value">04.09.2030</p>
+                <p class="identity-service-modal__field-value">10.01.2030</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
@@ -2901,6 +2901,11 @@
     var identityImageTranslateY = 0;
     var identityPinchStartDistance = 0;
     var identityPinchStartScale = 1;
+    var identityPinchStartTranslateX = 0;
+    var identityPinchStartTranslateY = 0;
+    var identityPinchCenterX = 0;
+    var identityPinchCenterY = 0;
+    var identityIsPinching = false;
     var identityPanStartX = 0;
     var identityPanStartY = 0;
     var identityPanOriginX = 0;
@@ -2967,6 +2972,16 @@
       var dx = touches[0].clientX - touches[1].clientX;
       var dy = touches[0].clientY - touches[1].clientY;
       return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function getTouchCenter(touches, element) {
+      var rect = element.getBoundingClientRect();
+      var cx = (touches[0].clientX + touches[1].clientX) / 2;
+      var cy = (touches[0].clientY + touches[1].clientY) / 2;
+      return {
+        x: cx - rect.left - rect.width / 2,
+        y: cy - rect.top - rect.height / 2
+      };
     }
 
     function closeIdentityLoading() {
@@ -3064,9 +3079,15 @@
     if (identityViewer) {
       identityViewer.addEventListener('touchstart', function(e) {
         if (e.touches.length === 2) {
+          identityIsPinching = true;
           identityPinchStartDistance = getTouchDistance(e.touches);
           identityPinchStartScale = identityImageScale;
-        } else if (e.touches.length === 1 && identityImageScale > 1) {
+          identityPinchStartTranslateX = identityImageTranslateX;
+          identityPinchStartTranslateY = identityImageTranslateY;
+          var pinchCenter = getTouchCenter(e.touches, identityViewer);
+          identityPinchCenterX = pinchCenter.x;
+          identityPinchCenterY = pinchCenter.y;
+        } else if (e.touches.length === 1 && identityImageScale > 1 && !identityIsPinching) {
           identityPanStartX = e.touches[0].clientX;
           identityPanStartY = e.touches[0].clientY;
           identityPanOriginX = identityImageTranslateX;
@@ -3077,11 +3098,16 @@
       identityViewer.addEventListener('touchmove', function(e) {
         if (e.touches.length === 2) {
           e.preventDefault();
+          identityIsPinching = true;
           var distance = getTouchDistance(e.touches);
           var nextScale = identityPinchStartScale * (distance / identityPinchStartDistance);
-          identityImageScale = Math.max(1, Math.min(4, nextScale));
+          nextScale = Math.max(1, Math.min(4, nextScale));
+          var ratio = nextScale / identityPinchStartScale;
+          identityImageScale = nextScale;
+          identityImageTranslateX = identityPinchCenterX * (1 - ratio) + identityPinchStartTranslateX * ratio;
+          identityImageTranslateY = identityPinchCenterY * (1 - ratio) + identityPinchStartTranslateY * ratio;
           applyIdentityImageTransform();
-        } else if (e.touches.length === 1 && identityImageScale > 1) {
+        } else if (e.touches.length === 1 && identityImageScale > 1 && !identityIsPinching) {
           e.preventDefault();
           identityImageTranslateX = identityPanOriginX + (e.touches[0].clientX - identityPanStartX);
           identityImageTranslateY = identityPanOriginY + (e.touches[0].clientY - identityPanStartY);
@@ -3089,7 +3115,10 @@
         }
       }, { passive: false });
 
-      identityViewer.addEventListener('touchend', function() {
+      identityViewer.addEventListener('touchend', function(e) {
+        if (e.touches.length < 2) {
+          identityIsPinching = false;
+        }
         if (identityImageScale <= 1.02) {
           resetIdentityImageTransform();
         }
