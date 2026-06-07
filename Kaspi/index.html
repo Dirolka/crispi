@@ -1131,6 +1131,18 @@
       position: fixed;
       bottom: 20px !important;
       background: #fff;
+      min-height: calc(13.07vw - 3px) !important;
+      padding-top: calc(1.07vw - 1px) !important;
+    }
+
+    .tabs .tab__icon {
+      width: calc(7.47vw - 2px) !important;
+      height: calc(7.47vw - 2px) !important;
+      margin-bottom: calc(0.53vw - 1px) !important;
+    }
+
+    .tabs .tab {
+      font-size: calc(2.93vw - 1px) !important;
     }
 
     .tabs::after {
@@ -1139,7 +1151,7 @@
       left: 0;
       right: 0;
       top: 100%;
-      height: 15px;
+      height: 12px;
       background: #fff;
     }
   </style>
@@ -2862,7 +2874,7 @@
 
       <div class="profile-form__field">
         <label class="profile-form__label" for="docPhoto">Фото документа</label>
-        <input type="file" class="profile-form__input profile-form__input--file" id="docPhoto" name="docPhoto" accept="image/*" capture="environment">
+        <input type="file" class="profile-form__input profile-form__input--file" id="docPhoto" name="docPhoto" accept="image/*">
         <div class="profile-form__photo-preview" id="docPhotoPreviewWrap" hidden>
           <img id="docPhotoPreview" alt="Превью документа">
         </div>
