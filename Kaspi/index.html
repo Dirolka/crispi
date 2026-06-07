@@ -479,16 +479,42 @@
 
     .identity-service-modal__slider {
       overflow: hidden;
+      touch-action: pan-y;
     }
 
     .identity-service-modal__track {
       display: flex;
       width: 200%;
-      transition: transform 0.28s ease;
+      will-change: transform;
     }
 
-    .identity-service-modal__track._requisites {
-      transform: translateX(-50%);
+    .identity-service-modal .public-services__tabs {
+      position: relative;
+    }
+
+    .identity-service-modal .public-services__tab {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      transition: color 0.2s ease;
+    }
+
+    .identity-service-modal .public-services__tab._active {
+      background: transparent;
+    }
+
+    .identity-service-modal__tab-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background: #fff;
+      border-radius: 11px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      z-index: 0;
+      will-change: transform;
+      pointer-events: none;
     }
 
     .identity-service-modal__panel {
@@ -540,25 +566,13 @@
     .identity-service-modal__field-copy {
       width: 22px;
       height: 22px;
-      border: 2px solid #8e8e93;
-      border-radius: 5px;
-      position: relative;
+      padding: 0;
+      border: none;
+      background: transparent url("image/list.png") center / contain no-repeat;
       flex-shrink: 0;
       margin-top: 10px;
-      opacity: 0.75;
-    }
-
-    .identity-service-modal__field-copy::before {
-      content: '';
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      border: 2px solid #8e8e93;
-      border-radius: 5px;
-      top: -7px;
-      left: 7px;
-      background: #fff;
-      box-sizing: border-box;
+      opacity: 0.85;
+      cursor: pointer;
     }
 
     .identity-service-modal__field-label {
@@ -820,6 +834,291 @@
       font-weight: 600;
       padding: 14px;
       cursor: pointer;
+    }
+
+    .kaspi-qr-scanner {
+      position: fixed;
+      inset: 0;
+      z-index: 10050;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .kaspi-qr-scanner[hidden] {
+      display: none;
+    }
+
+    .kaspi-qr-scanner__video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #1a1a1a;
+    }
+
+    .kaspi-qr-scanner__ui {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none;
+    }
+
+    .kaspi-qr-scanner__ui button,
+    .kaspi-qr-scanner__sheet-item {
+      pointer-events: auto;
+    }
+
+    .kaspi-qr-scanner__header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: calc(env(safe-area-inset-top, 0px) + 10px) 56px 10px;
+      color: #fff;
+    }
+
+    .kaspi-qr-scanner__title {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+
+    .kaspi-qr-scanner__close {
+      position: absolute;
+      right: 14px;
+      top: calc(env(safe-area-inset-top, 0px) + 8px);
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .kaspi-qr-scanner__scan-zone {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px 24px;
+      margin-bottom: 34vh;
+    }
+
+    .kaspi-qr-scanner__hint {
+      margin: 0 0 18px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+    }
+
+    .kaspi-qr-scanner__frame-wrap {
+      position: relative;
+      width: 268px;
+      height: 268px;
+    }
+
+    .kaspi-qr-scanner__frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.52);
+      position: relative;
+    }
+
+    .kaspi-qr-scanner__corner {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border: 4px solid #f14635;
+    }
+
+    .kaspi-qr-scanner__corner._tl {
+      top: -2px;
+      left: -2px;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 6px 0 0 0;
+    }
+
+    .kaspi-qr-scanner__corner._tr {
+      top: -2px;
+      right: -2px;
+      border-left: none;
+      border-bottom: none;
+      border-radius: 0 6px 0 0;
+    }
+
+    .kaspi-qr-scanner__corner._bl {
+      bottom: -2px;
+      left: -2px;
+      border-right: none;
+      border-top: none;
+      border-radius: 0 0 0 6px;
+    }
+
+    .kaspi-qr-scanner__corner._br {
+      bottom: -2px;
+      right: -2px;
+      border-left: none;
+      border-top: none;
+      border-radius: 0 0 6px 0;
+    }
+
+    .kaspi-qr-scanner__torch {
+      margin-top: 22px;
+      width: 52px;
+      height: 52px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .kaspi-qr-scanner__torch._active {
+      background: rgba(255, 255, 255, 0.32);
+    }
+
+    .kaspi-qr-scanner__torch svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    .kaspi-qr-scanner__sheet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      padding: 10px 0 calc(env(safe-area-inset-bottom, 0px) + 8px);
+      pointer-events: auto;
+      max-height: 38vh;
+      overflow-y: auto;
+    }
+
+    .kaspi-qr-scanner__sheet-handle {
+      width: 42px;
+      height: 5px;
+      border-radius: 3px;
+      background: #d1d1d6;
+      margin: 0 auto 14px;
+    }
+
+    .kaspi-qr-scanner__sheet-title {
+      margin: 0 0 8px;
+      padding: 0 20px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1c1c1e;
+      letter-spacing: -0.3px;
+    }
+
+    .kaspi-qr-scanner__sheet-list {
+      border-top: 1px solid #f0f0f2;
+    }
+
+    .kaspi-qr-scanner__sheet-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      border-bottom: 1px solid #f0f0f2;
+      background: #fff;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .kaspi-qr-scanner__sheet-item:last-child {
+      border-bottom: none;
+    }
+
+    .kaspi-qr-scanner__badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .kaspi-qr-scanner__badge._yellow {
+      background: #ffc72c;
+      color: #1c1c1e;
+    }
+
+    .kaspi-qr-scanner__badge._red {
+      background: #e5252a;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .kaspi-qr-scanner__sheet-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .kaspi-qr-scanner__sheet-label {
+      display: block;
+      font-size: 16px;
+      font-weight: 500;
+      color: #1c1c1e;
+      line-height: 1.25;
+    }
+
+    .kaspi-qr-scanner__sheet-sub {
+      display: block;
+      margin-top: 2px;
+      font-size: 13px;
+      color: #8e8e93;
+      line-height: 1.2;
+    }
+
+    .kaspi-qr-scanner__sheet-arrow {
+      color: #c7c7cc;
+      font-size: 22px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .kaspi-qr-scanner__camera-error {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #fff;
+      font-size: 15px;
+      text-align: center;
+      background: #1a1a1a;
+      z-index: 0;
     }
 
     /* Public Services Page Styles */
@@ -2831,14 +3130,15 @@
   <div class="identity-service-modal__content">
     <h2 class="identity-service-modal__heading">Удостоверение личности</h2>
     <div class="identity-service-modal__tabs-wrap">
-      <div class="public-services__tabs-panel">
-        <div class="public-services__tabs" role="tablist">
+      <div class="public-services__tabs-panel" id="identityServiceTabsPanel">
+        <div class="public-services__tabs" id="identityServiceTabsBar" role="tablist">
+          <div class="identity-service-modal__tab-thumb" id="identityServiceTabThumb" aria-hidden="true"></div>
           <button class="public-services__tab _active" type="button">Документ</button>
           <button class="public-services__tab" type="button">Реквизиты</button>
         </div>
       </div>
     </div>
-    <div class="identity-service-modal__slider">
+    <div class="identity-service-modal__slider" id="identityServiceSlider">
       <div class="identity-service-modal__track" id="identityServiceTrack">
         <div class="identity-service-modal__panel">
           <div class="identity-service-modal__viewer" id="identityViewer">
@@ -2862,42 +3162,42 @@
                 <p class="identity-service-modal__field-label">ФИО</p>
                 <p class="identity-service-modal__field-value" id="identityFieldFullName">—</p>
               </div>
-              <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
+              <button class="identity-service-modal__field-copy" type="button" aria-label="Копировать"></button>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">ИИН</p>
                 <p class="identity-service-modal__field-value" id="identityFieldIin">—</p>
               </div>
-              <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
+              <button class="identity-service-modal__field-copy" type="button" aria-label="Копировать"></button>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Дата рождения</p>
                 <p class="identity-service-modal__field-value" id="identityFieldBirthDate">—</p>
               </div>
-              <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
+              <button class="identity-service-modal__field-copy" type="button" aria-label="Копировать"></button>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Номер документа</p>
                 <p class="identity-service-modal__field-value" id="identityFieldDocNumber">—</p>
               </div>
-              <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
+              <button class="identity-service-modal__field-copy" type="button" aria-label="Копировать"></button>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Дата выдачи</p>
                 <p class="identity-service-modal__field-value" id="identityFieldDocIssueDate">—</p>
               </div>
-              <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
+              <button class="identity-service-modal__field-copy" type="button" aria-label="Копировать"></button>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Срок действия</p>
                 <p class="identity-service-modal__field-value" id="identityFieldDocExpiryDate">—</p>
               </div>
-              <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
+              <button class="identity-service-modal__field-copy" type="button" aria-label="Копировать"></button>
             </div>
           </div>
         </div>
@@ -2959,6 +3259,59 @@
       </button>
     </div>
     <button class="identity-share-sheet__cancel" id="identityShareSheetCancel" type="button">Отмена</button>
+  </div>
+</div>
+
+<div id="kaspiQrScanner" class="kaspi-qr-scanner" hidden>
+  <video id="kaspiQrVideo" class="kaspi-qr-scanner__video" autoplay playsinline muted></video>
+  <div id="kaspiQrCameraError" class="kaspi-qr-scanner__camera-error" hidden>Не удалось открыть камеру. Разрешите доступ в настройках браузера.</div>
+  <div class="kaspi-qr-scanner__ui">
+    <div class="kaspi-qr-scanner__header">
+      <h1 class="kaspi-qr-scanner__title">Kaspi QR</h1>
+      <button class="kaspi-qr-scanner__close" id="kaspiQrClose" type="button" aria-label="Закрыть">&times;</button>
+    </div>
+    <div class="kaspi-qr-scanner__scan-zone">
+      <p class="kaspi-qr-scanner__hint">Сканируйте QR-код</p>
+      <div class="kaspi-qr-scanner__frame-wrap">
+        <div class="kaspi-qr-scanner__frame">
+          <span class="kaspi-qr-scanner__corner _tl"></span>
+          <span class="kaspi-qr-scanner__corner _tr"></span>
+          <span class="kaspi-qr-scanner__corner _bl"></span>
+          <span class="kaspi-qr-scanner__corner _br"></span>
+        </div>
+      </div>
+      <button class="kaspi-qr-scanner__torch" id="kaspiQrTorch" type="button" aria-label="Фонарик">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2h2v3h-2V2zm-1 5h4l1 9h-6l1-9zm1 11a2 2 0 1 0 0 .01V18z"/></svg>
+      </button>
+    </div>
+    <div class="kaspi-qr-scanner__sheet">
+      <div class="kaspi-qr-scanner__sheet-handle"></div>
+      <h2 class="kaspi-qr-scanner__sheet-title">Оформить онлайн</h2>
+      <div class="kaspi-qr-scanner__sheet-list">
+        <button class="kaspi-qr-scanner__sheet-item" type="button">
+          <span class="kaspi-qr-scanner__badge _yellow">0-0-24</span>
+          <span class="kaspi-qr-scanner__sheet-text">
+            <span class="kaspi-qr-scanner__sheet-label">Рассрочка 0-0-24</span>
+          </span>
+          <span class="kaspi-qr-scanner__sheet-arrow">›</span>
+        </button>
+        <button class="kaspi-qr-scanner__sheet-item" type="button">
+          <span class="kaspi-qr-scanner__badge _yellow">0-0-12</span>
+          <span class="kaspi-qr-scanner__sheet-text">
+            <span class="kaspi-qr-scanner__sheet-label">Рассрочка 0-0-12</span>
+          </span>
+          <span class="kaspi-qr-scanner__sheet-arrow">›</span>
+        </button>
+        <button class="kaspi-qr-scanner__sheet-item" type="button">
+          <span class="kaspi-qr-scanner__badge _red">Red+</span>
+          <span class="kaspi-qr-scanner__sheet-text">
+            <span class="kaspi-qr-scanner__sheet-label">Kaspi Red+ 0-0-4</span>
+            <span class="kaspi-qr-scanner__sheet-sub">Рассрочка до 500 000 ₸</span>
+          </span>
+          <span class="kaspi-qr-scanner__sheet-arrow">›</span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -3165,6 +3518,47 @@
     });
   }
 
+  function copyTextToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+
+    return new Promise(function(resolve, reject) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        resolve();
+      } catch (error) {
+        document.body.removeChild(textarea);
+        reject(error);
+      }
+    });
+  }
+
+  function initIdentityFieldCopyButtons() {
+    var copyButtons = document.querySelectorAll('.identity-service-modal__field-copy');
+    copyButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        var field = button.closest('.identity-service-modal__field');
+        var valueEl = field ? field.querySelector('.identity-service-modal__field-value') : null;
+        var text = valueEl ? valueEl.textContent.trim() : '';
+
+        if (!text || text === '—') return;
+
+        copyTextToClipboard(text).catch(function() {
+          alert('Не удалось скопировать');
+        });
+      });
+    });
+  }
+
   function applyUserProfileToDocumentView() {
     var data = getSavedUserProfile();
     var identityViewerImage = document.getElementById('identityViewerImage');
@@ -3260,7 +3654,18 @@
     var identityPresentButton = document.getElementById('identityPresentButton');
     var identitySendDocumentButton = document.getElementById('identitySendDocumentButton');
     var identityServiceTrack = document.getElementById('identityServiceTrack');
+    var identityServiceSlider = document.getElementById('identityServiceSlider');
+    var identityServiceTabsPanel = document.getElementById('identityServiceTabsPanel');
+    var identityServiceTabsBar = document.getElementById('identityServiceTabsBar');
+    var identityServiceTabThumb = document.getElementById('identityServiceTabThumb');
     var identityServiceTabs = identityServiceModal ? identityServiceModal.querySelectorAll('.public-services__tab') : null;
+    var identityTabProgress = 0;
+    var identityTabDragging = false;
+    var identityTabDragMaybe = false;
+    var identityTabDragStartX = 0;
+    var identityTabDragStartY = 0;
+    var identityTabDragStartProgress = 0;
+    var identityTabDidDrag = false;
     var identityViewer = document.getElementById('identityViewer');
     var identityViewerTransform = document.getElementById('identityViewerTransform');
     var identityViewerImage = document.getElementById('identityViewerImage');
@@ -3374,25 +3779,154 @@
       if (identityLoading) identityLoading.style.display = 'none';
     }
 
-    function setIdentityServiceTab(tabName) {
-      identityActiveTab = tabName;
-      if (!identityServiceTabs) return;
-      identityServiceTabs.forEach(function(tab, index) {
-        var isActive = (tabName === 'document' && index === 0) || (tabName === 'requisites' && index === 1);
-        tab.classList.toggle('_active', isActive);
-      });
-      if (identityServiceTrack) {
-        identityServiceTrack.classList.toggle('_requisites', tabName === 'requisites');
-      }
+    function getIdentitySliderWidth() {
+      return identityServiceSlider ? identityServiceSlider.offsetWidth : window.innerWidth;
+    }
+
+    function updateIdentityTabActions() {
+      var isRequisites = identityTabProgress >= 0.5;
       if (identityDocumentActions) {
-        identityDocumentActions.hidden = tabName !== 'document';
+        identityDocumentActions.hidden = isRequisites;
       }
       if (identityRequisitesActions) {
-        identityRequisitesActions.hidden = tabName !== 'requisites';
+        identityRequisitesActions.hidden = !isRequisites;
       }
+    }
+
+    function applyIdentityTabProgress(progress, animate) {
+      progress = Math.max(0, Math.min(1, progress));
+      identityTabProgress = progress;
+
+      var transition = animate
+        ? 'transform 0.34s cubic-bezier(0.4, 0, 0.2, 1)'
+        : 'none';
+
+      if (identityServiceTrack) {
+        identityServiceTrack.style.transition = transition;
+        identityServiceTrack.style.transform = 'translateX(' + (-progress * 50) + '%)';
+      }
+
+      if (identityServiceTabThumb) {
+        identityServiceTabThumb.style.transition = transition;
+        identityServiceTabThumb.style.transform = 'translateX(' + (progress * 100) + '%)';
+      }
+
+      var isRequisites = progress >= 0.5;
+      identityActiveTab = isRequisites ? 'requisites' : 'document';
+
+      if (identityServiceTabs) {
+        identityServiceTabs.forEach(function(tab, index) {
+          tab.classList.toggle('_active', (index === 0 && !isRequisites) || (index === 1 && isRequisites));
+        });
+      }
+
+      if (!identityTabDragging) {
+        updateIdentityTabActions();
+      }
+    }
+
+    function snapIdentityTab(animate) {
+      var target = identityTabProgress >= 0.5 ? 1 : 0;
+      applyIdentityTabProgress(target, animate !== false);
+      if (target === 0) {
+        resetIdentityImageTransform();
+      }
+      updateIdentityTabActions();
+    }
+
+    function setIdentityServiceTab(tabName, animate) {
+      var progress = tabName === 'requisites' ? 1 : 0;
+      applyIdentityTabProgress(progress, animate !== false);
       if (tabName === 'document') {
         resetIdentityImageTransform();
       }
+      updateIdentityTabActions();
+    }
+
+    function startIdentityTabDrag(clientX, clientY, target) {
+      if (target && identityViewer && identityViewer.contains(target) && identityImageScale > 1.02) {
+        return;
+      }
+      identityTabDragMaybe = true;
+      identityTabDragging = false;
+      identityTabDidDrag = false;
+      identityTabDragStartX = clientX;
+      identityTabDragStartY = clientY;
+      identityTabDragStartProgress = identityTabProgress;
+    }
+
+    function moveIdentityTabDrag(clientX, clientY, target, prevent) {
+      if (!identityTabDragMaybe && !identityTabDragging) return;
+
+      var dx = clientX - identityTabDragStartX;
+      var dy = clientY - identityTabDragStartY;
+
+      if (identityTabDragMaybe) {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        if (Math.abs(dy) > Math.abs(dx)) {
+          identityTabDragMaybe = false;
+          return;
+        }
+        if (target && identityViewer && identityViewer.contains(target) && identityImageScale > 1.02) {
+          identityTabDragMaybe = false;
+          return;
+        }
+        identityTabDragMaybe = false;
+        identityTabDragging = true;
+        identityTabDidDrag = true;
+      }
+
+      if (!identityTabDragging) return;
+
+      if (prevent) prevent();
+      var width = getIdentitySliderWidth();
+      applyIdentityTabProgress(identityTabDragStartProgress + (-dx / width), false);
+    }
+
+    function endIdentityTabDrag() {
+      if (!identityTabDragMaybe && !identityTabDragging) return;
+      identityTabDragMaybe = false;
+      identityTabDragging = false;
+      snapIdentityTab(true);
+    }
+
+    function initIdentityTabDrag(element) {
+      if (!element) return;
+
+      element.addEventListener('touchstart', function(e) {
+        var touch = e.touches[0];
+        startIdentityTabDrag(touch.clientX, touch.clientY, e.target);
+      }, { passive: true });
+
+      element.addEventListener('touchmove', function(e) {
+        var touch = e.touches[0];
+        moveIdentityTabDrag(touch.clientX, touch.clientY, e.target, function() {
+          e.preventDefault();
+        });
+      }, { passive: false });
+
+      element.addEventListener('touchend', endIdentityTabDrag);
+      element.addEventListener('touchcancel', endIdentityTabDrag);
+
+      element.addEventListener('mousedown', function(e) {
+        if (e.button !== 0) return;
+        startIdentityTabDrag(e.clientX, e.clientY, e.target);
+
+        function onMouseMove(moveEvent) {
+          moveIdentityTabDrag(moveEvent.clientX, moveEvent.clientY, moveEvent.target, function() {
+            moveEvent.preventDefault();
+          });
+        }
+
+        function onMouseUp() {
+          endIdentityTabDrag();
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
     }
 
     function openIdentityServiceModal() {
@@ -3449,15 +3983,28 @@
     }
 
     initIdentityShareSheet();
+    initIdentityFieldCopyButtons();
 
     if (identityServiceTabs && identityServiceTabs.length >= 2) {
       identityServiceTabs[0].addEventListener('click', function() {
+        if (identityTabDidDrag) {
+          identityTabDidDrag = false;
+          return;
+        }
         setIdentityServiceTab('document');
       });
       identityServiceTabs[1].addEventListener('click', function() {
+        if (identityTabDidDrag) {
+          identityTabDidDrag = false;
+          return;
+        }
         setIdentityServiceTab('requisites');
       });
     }
+
+    initIdentityTabDrag(identityServiceTabsPanel);
+    initIdentityTabDrag(identityServiceSlider);
+    applyIdentityTabProgress(0, false);
 
     if (identityViewer) {
       identityViewer.addEventListener('touchstart', function(e) {
@@ -3683,6 +4230,115 @@
     if (profileName) {
       loadProfileData();
     }
+  })();
+
+  // Kaspi QR scanner
+  (function() {
+    var scanner = document.getElementById('kaspiQrScanner');
+    var video = document.getElementById('kaspiQrVideo');
+    var cameraError = document.getElementById('kaspiQrCameraError');
+    var closeBtn = document.getElementById('kaspiQrClose');
+    var torchBtn = document.getElementById('kaspiQrTorch');
+    var qrTriggers = document.querySelectorAll('[data-alert-id="qr"]');
+    var cameraStream = null;
+    var videoTrack = null;
+    var torchOn = false;
+
+    function stopKaspiQrCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(function(track) {
+          track.stop();
+        });
+        cameraStream = null;
+      }
+      videoTrack = null;
+      torchOn = false;
+      if (video) video.srcObject = null;
+      if (torchBtn) torchBtn.classList.remove('_active');
+    }
+
+    function startKaspiQrCamera() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        if (cameraError) cameraError.hidden = false;
+        if (video) video.hidden = true;
+        return;
+      }
+
+      if (cameraError) cameraError.hidden = true;
+      if (video) video.hidden = false;
+
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: { ideal: 'environment' },
+          width: { ideal: 1920 },
+          height: { ideal: 1080 }
+        },
+        audio: false
+      }).then(function(stream) {
+        cameraStream = stream;
+        videoTrack = stream.getVideoTracks()[0] || null;
+        if (video) {
+          video.srcObject = stream;
+          return video.play();
+        }
+      }).catch(function() {
+        if (cameraError) cameraError.hidden = false;
+        if (video) video.hidden = true;
+        stopKaspiQrCamera();
+      });
+    }
+
+    function openKaspiQrScanner(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (!scanner) return;
+      scanner.hidden = false;
+      document.body.style.overflow = 'hidden';
+      startKaspiQrCamera();
+    }
+
+    function closeKaspiQrScanner() {
+      if (!scanner) return;
+      scanner.hidden = true;
+      document.body.style.overflow = '';
+      stopKaspiQrCamera();
+    }
+
+    function toggleKaspiQrTorch() {
+      if (!videoTrack || !torchBtn) return;
+
+      torchOn = !torchOn;
+      var constraints = { advanced: [{ torch: torchOn }] };
+
+      if (typeof videoTrack.applyConstraints === 'function') {
+        videoTrack.applyConstraints(constraints).then(function() {
+          torchBtn.classList.toggle('_active', torchOn);
+        }).catch(function() {
+          torchOn = false;
+          torchBtn.classList.remove('_active');
+        });
+      }
+    }
+
+    qrTriggers.forEach(function(trigger) {
+      trigger.addEventListener('click', openKaspiQrScanner, true);
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeKaspiQrScanner);
+    }
+
+    if (torchBtn) {
+      torchBtn.addEventListener('click', toggleKaspiQrTorch);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && scanner && !scanner.hidden) {
+        closeKaspiQrScanner();
+      }
+    });
   })();
 </script>
 
