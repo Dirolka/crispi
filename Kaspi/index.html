@@ -408,17 +408,19 @@
 
     .identity-loading__close,
     .identity-service-modal__close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
+      display: flex;
+      align-items: center;
       width: 32px;
       height: 32px;
       border: none;
       background: none;
-      color: #2c2c2e;
-      font-size: 22px;
-      line-height: 1;
       cursor: pointer;
+      margin-right: 12px;
+    }
+
+    .identity-service-modal__close img {
+      width: 24px;
+      height: 24px;
     }
 
     .identity-loading__body {
@@ -3126,9 +3128,11 @@
 </div>
 
 <div id="identityServiceModal" class="identity-service-modal" style="display: none;">
-  <button class="identity-service-modal__close" id="identityServiceModalClose" type="button">&times;</button>
   <div class="identity-service-modal__content">
-    <h2 class="identity-service-modal__heading">Удостоверение личности</h2>
+    <div style="display: flex; align-items: center; gap: 40px; margin-bottom: 20px;">
+      <button class="identity-service-modal__close" id="identityServiceModalClose" type="button" style="position: static !important; margin: 0 !important; width: auto !important; height: auto !important; top: auto !important; right: auto !important;"><img src="image/free-icon-down-arrow-2985150.png" alt="Закрыть" style="width: 24px; height: 24px; display: block;"></button>
+      <h2 class="identity-service-modal__heading" style="margin: 0; padding: 0;">Удостоверение личности</h2>
+    </div>
     <div class="identity-service-modal__tabs-wrap">
       <div class="public-services__tabs-panel" id="identityServiceTabsPanel">
         <div class="public-services__tabs" id="identityServiceTabsBar" role="tablist">
