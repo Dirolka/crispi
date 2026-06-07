@@ -364,6 +364,40 @@
       background: #e0e0e0;
     }
 
+    .profile-form__input--file {
+      padding: 10px 12px;
+      background: #fafafa;
+    }
+
+    .profile-form__photo-preview {
+      margin-top: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      max-height: 180px;
+    }
+
+    .profile-form__photo-preview img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 180px;
+      object-fit: contain;
+    }
+
+    .identity-service-modal__viewer-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 560px;
+      padding: 24px;
+      box-sizing: border-box;
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.4;
+      color: #8e8e93;
+    }
+
     .identity-loading,
     .identity-service-modal {
       position: fixed;
@@ -470,16 +504,21 @@
       min-height: 560px;
       touch-action: none;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
+    }
+
+    .identity-service-modal__transform {
+      width: 100%;
+      transform-origin: center center;
+      will-change: transform;
+      touch-action: none;
     }
 
     .identity-service-modal__image {
       width: 100%;
       height: auto;
       display: block;
-      transform-origin: center center;
-      will-change: transform;
       user-select: none;
       -webkit-user-drag: none;
       touch-action: none;
@@ -2693,12 +2732,17 @@
       <div class="identity-service-modal__track" id="identityServiceTrack">
         <div class="identity-service-modal__panel">
           <div class="identity-service-modal__viewer" id="identityViewer">
-            <img
-              id="identityViewerImage"
-              class="identity-service-modal__image"
-              src="image/061230551001-20260107034111959 (1)_page-0001.jpg"
-              alt="Удостоверение личности"
-            />
+            <div class="identity-service-modal__viewer-placeholder" id="identityViewerPlaceholder">
+              Загрузите фото документа в профиле
+            </div>
+            <div class="identity-service-modal__transform" id="identityViewerTransform" hidden>
+              <img
+                id="identityViewerImage"
+                class="identity-service-modal__image"
+                src=""
+                alt="Удостоверение личности"
+              />
+            </div>
           </div>
         </div>
         <div class="identity-service-modal__panel">
@@ -2706,42 +2750,42 @@
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">ФИО</p>
-                <p class="identity-service-modal__field-value">Жолдубаев Дияр Ержанович</p>
+                <p class="identity-service-modal__field-value" id="identityFieldFullName">—</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">ИИН</p>
-                <p class="identity-service-modal__field-value">031230551001</p>
+                <p class="identity-service-modal__field-value" id="identityFieldIin">—</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Дата рождения</p>
-                <p class="identity-service-modal__field-value">30.12.2003</p>
+                <p class="identity-service-modal__field-value" id="identityFieldBirthDate">—</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Номер документа</p>
-                <p class="identity-service-modal__field-value">0554465326</p>
+                <p class="identity-service-modal__field-value" id="identityFieldDocNumber">—</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Дата выдачи</p>
-                <p class="identity-service-modal__field-value">11.01.2020</p>
+                <p class="identity-service-modal__field-value" id="identityFieldDocIssueDate">—</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
             <div class="identity-service-modal__field">
               <div>
                 <p class="identity-service-modal__field-label">Срок действия</p>
-                <p class="identity-service-modal__field-value">10.01.2030</p>
+                <p class="identity-service-modal__field-value" id="identityFieldDocExpiryDate">—</p>
               </div>
               <span class="identity-service-modal__field-copy" aria-hidden="true"></span>
             </div>
@@ -2816,6 +2860,14 @@
         <input type="date" class="profile-form__input" id="docExpiryDate" name="docExpiryDate" required>
       </div>
 
+      <div class="profile-form__field">
+        <label class="profile-form__label" for="docPhoto">Фото документа</label>
+        <input type="file" class="profile-form__input profile-form__input--file" id="docPhoto" name="docPhoto" accept="image/*" capture="environment">
+        <div class="profile-form__photo-preview" id="docPhotoPreviewWrap" hidden>
+          <img id="docPhotoPreview" alt="Превью документа">
+        </div>
+      </div>
+
       <div class="profile-form__actions">
         <button type="submit" class="profile-form__submit">Сохранить</button>
         <button type="button" class="profile-form__cancel" id="profileFormCancel">Отмена</button>
@@ -2828,6 +2880,55 @@
 <script  src="https://static.cdn-kaspi.kz/kkz/mainmvc/reswp/bundles/js/end_mobile.7781d44d7d13439e.js"></script>
 
 <script>
+  function formatProfileDateRu(isoDate) {
+    if (!isoDate) return '—';
+    var parts = isoDate.split('-');
+    if (parts.length !== 3) return isoDate;
+    return parts[2] + '.' + parts[1] + '.' + parts[0];
+  }
+
+  function getSavedUserProfile() {
+    var savedData = localStorage.getItem('userProfile');
+    if (!savedData) return null;
+    try {
+      return JSON.parse(savedData);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function applyUserProfileToDocumentView() {
+    var data = getSavedUserProfile();
+    var identityViewerImage = document.getElementById('identityViewerImage');
+    var identityViewerTransform = document.getElementById('identityViewerTransform');
+    var identityViewerPlaceholder = document.getElementById('identityViewerPlaceholder');
+    var fieldMap = {
+      identityFieldFullName: data && data.fullName ? data.fullName : '—',
+      identityFieldIin: data && data.iin ? data.iin : '—',
+      identityFieldBirthDate: data ? formatProfileDateRu(data.birthDate) : '—',
+      identityFieldDocNumber: data && data.docNumber ? data.docNumber : '—',
+      identityFieldDocIssueDate: data ? formatProfileDateRu(data.docIssueDate) : '—',
+      identityFieldDocExpiryDate: data ? formatProfileDateRu(data.docExpiryDate) : '—'
+    };
+
+    Object.keys(fieldMap).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = fieldMap[id];
+    });
+
+    if (!identityViewerImage) return;
+
+    if (data && data.docPhoto) {
+      identityViewerImage.src = data.docPhoto;
+      if (identityViewerTransform) identityViewerTransform.hidden = false;
+      if (identityViewerPlaceholder) identityViewerPlaceholder.hidden = true;
+    } else {
+      identityViewerImage.removeAttribute('src');
+      if (identityViewerTransform) identityViewerTransform.hidden = true;
+      if (identityViewerPlaceholder) identityViewerPlaceholder.hidden = false;
+    }
+  }
+
   // Tab switching functionality
   (function() {
     var mainPage = document.getElementById('mainPage');
@@ -2893,6 +2994,7 @@
     var identityServiceTrack = document.getElementById('identityServiceTrack');
     var identityServiceTabs = identityServiceModal ? identityServiceModal.querySelectorAll('.public-services__tab') : null;
     var identityViewer = document.getElementById('identityViewer');
+    var identityViewerTransform = document.getElementById('identityViewerTransform');
     var identityViewerImage = document.getElementById('identityViewerImage');
     var identityLoadingTimer = null;
     var identityActiveTab = 'document';
@@ -2956,8 +3058,8 @@
     }
 
     function applyIdentityImageTransform() {
-      if (!identityViewerImage) return;
-      identityViewerImage.style.transform =
+      if (!identityViewerTransform) return;
+      identityViewerTransform.style.transform =
         'translate(' + identityImageTranslateX + 'px, ' + identityImageTranslateY + 'px) scale(' + identityImageScale + ')';
     }
 
@@ -2974,13 +3076,25 @@
       return Math.sqrt(dx * dx + dy * dy);
     }
 
-    function getTouchCenter(touches, element) {
+    function getTransformOriginScreen(element) {
       var rect = element.getBoundingClientRect();
+      var matrix = new DOMMatrixReadOnly(window.getComputedStyle(element).transform);
+      var localOrigin = new DOMPoint(element.offsetWidth / 2, element.offsetHeight / 2);
+      var mapped = matrix.transformPoint(localOrigin);
+      return {
+        x: rect.left + mapped.x,
+        y: rect.top + mapped.y
+      };
+    }
+
+    function getTouchCenterOnImage(touches) {
+      if (!identityViewerTransform) return { x: 0, y: 0 };
+      var origin = getTransformOriginScreen(identityViewerTransform);
       var cx = (touches[0].clientX + touches[1].clientX) / 2;
       var cy = (touches[0].clientY + touches[1].clientY) / 2;
       return {
-        x: cx - rect.left - rect.width / 2,
-        y: cy - rect.top - rect.height / 2
+        x: cx - origin.x,
+        y: cy - origin.y
       };
     }
 
@@ -3014,6 +3128,7 @@
     }
 
     function openIdentityServiceModal() {
+      applyUserProfileToDocumentView();
       if (identityServiceModal) identityServiceModal.style.display = 'block';
       setIdentityServiceTab('document');
       resetIdentityImageTransform();
@@ -3078,13 +3193,14 @@
 
     if (identityViewer) {
       identityViewer.addEventListener('touchstart', function(e) {
+        if (identityViewerTransform && identityViewerTransform.hidden) return;
         if (e.touches.length === 2) {
           identityIsPinching = true;
           identityPinchStartDistance = getTouchDistance(e.touches);
           identityPinchStartScale = identityImageScale;
           identityPinchStartTranslateX = identityImageTranslateX;
           identityPinchStartTranslateY = identityImageTranslateY;
-          var pinchCenter = getTouchCenter(e.touches, identityViewer);
+          var pinchCenter = getTouchCenterOnImage(e.touches);
           identityPinchCenterX = pinchCenter.x;
           identityPinchCenterY = pinchCenter.y;
         } else if (e.touches.length === 1 && identityImageScale > 1 && !identityIsPinching) {
@@ -3104,8 +3220,8 @@
           nextScale = Math.max(1, Math.min(4, nextScale));
           var ratio = nextScale / identityPinchStartScale;
           identityImageScale = nextScale;
-          identityImageTranslateX = identityPinchCenterX * (1 - ratio) + identityPinchStartTranslateX * ratio;
-          identityImageTranslateY = identityPinchCenterY * (1 - ratio) + identityPinchStartTranslateY * ratio;
+          identityImageTranslateX = identityPinchCenterX - (identityPinchCenterX - identityPinchStartTranslateX) * ratio;
+          identityImageTranslateY = identityPinchCenterY - (identityPinchCenterY - identityPinchStartTranslateY) * ratio;
           applyIdentityImageTransform();
         } else if (e.touches.length === 1 && identityImageScale > 1 && !identityIsPinching) {
           e.preventDefault();
@@ -3118,6 +3234,12 @@
       identityViewer.addEventListener('touchend', function(e) {
         if (e.touches.length < 2) {
           identityIsPinching = false;
+        }
+        if (e.touches.length === 1 && identityImageScale > 1) {
+          identityPanStartX = e.touches[0].clientX;
+          identityPanStartY = e.touches[0].clientY;
+          identityPanOriginX = identityImageTranslateX;
+          identityPanOriginY = identityImageTranslateY;
         }
         if (identityImageScale <= 1.02) {
           resetIdentityImageTransform();
@@ -3147,6 +3269,8 @@
     }
     if (tabAll) tabAll.addEventListener('click', function() { setPublicTab('all'); });
     if (tabMy) tabMy.addEventListener('click', function() { setPublicTab('my'); });
+
+    applyUserProfileToDocumentView();
   })();
 
   // Profile Modal functionality
@@ -3157,6 +3281,10 @@
     var profileFormCancel = document.getElementById('profileFormCancel');
     var profileForm = document.getElementById('profileForm');
     var profileName = document.getElementById('userProfileName');
+    var docPhotoInput = document.getElementById('docPhoto');
+    var docPhotoPreview = document.getElementById('docPhotoPreview');
+    var docPhotoPreviewWrap = document.getElementById('docPhotoPreviewWrap');
+    var pendingDocPhoto = null;
     var overlay = profileModal ? profileModal.querySelector('.profile-modal__overlay') : null;
 
     function openProfileModal() {
@@ -3173,54 +3301,62 @@
       }
     }
 
-    function loadProfileData() {
-      var savedData = localStorage.getItem('userProfile');
-      if (savedData) {
-        try {
-          var data = JSON.parse(savedData);
-          document.getElementById('fullName').value = data.fullName || '';
-          document.getElementById('iin').value = data.iin || '';
-          document.getElementById('birthDate').value = data.birthDate || '';
-          document.getElementById('docNumber').value = data.docNumber || '';
-          document.getElementById('docIssueDate').value = data.docIssueDate || '';
-          document.getElementById('docExpiryDate').value = data.docExpiryDate || '';
-
-          // Update profile name display
-          if (data.fullName && profileName) {
-            var nameParts = data.fullName.split(' ');
-            if (nameParts.length >= 2) {
-              profileName.textContent = nameParts[0] + ' ' + nameParts[1].charAt(0) + '.';
-            } else {
-              profileName.textContent = data.fullName;
-            }
-          }
-        } catch (e) {
-          console.error('Error loading profile data:', e);
-        }
+    function updateProfileNameDisplay(fullName) {
+      if (!fullName || !profileName) return;
+      var nameParts = fullName.split(' ');
+      if (nameParts.length >= 2) {
+        profileName.textContent = nameParts[0] + ' ' + nameParts[1].charAt(0) + '.';
+      } else {
+        profileName.textContent = fullName;
       }
     }
 
+    function setDocPhotoPreview(photoData) {
+      if (!docPhotoPreview || !docPhotoPreviewWrap) return;
+      if (photoData) {
+        docPhotoPreview.src = photoData;
+        docPhotoPreviewWrap.hidden = false;
+      } else {
+        docPhotoPreview.removeAttribute('src');
+        docPhotoPreviewWrap.hidden = true;
+      }
+    }
+
+    function loadProfileData() {
+      pendingDocPhoto = null;
+      var data = getSavedUserProfile();
+      if (data) {
+        document.getElementById('fullName').value = data.fullName || '';
+        document.getElementById('iin').value = data.iin || '';
+        document.getElementById('birthDate').value = data.birthDate || '';
+        document.getElementById('docNumber').value = data.docNumber || '';
+        document.getElementById('docIssueDate').value = data.docIssueDate || '';
+        document.getElementById('docExpiryDate').value = data.docExpiryDate || '';
+        setDocPhotoPreview(data.docPhoto || null);
+        updateProfileNameDisplay(data.fullName);
+      } else {
+        setDocPhotoPreview(null);
+      }
+      if (docPhotoInput) docPhotoInput.value = '';
+    }
+
     function saveProfileData() {
+      var existingData = getSavedUserProfile() || {};
       var formData = {
         fullName: document.getElementById('fullName').value,
         iin: document.getElementById('iin').value,
         birthDate: document.getElementById('birthDate').value,
         docNumber: document.getElementById('docNumber').value,
         docIssueDate: document.getElementById('docIssueDate').value,
-        docExpiryDate: document.getElementById('docExpiryDate').value
+        docExpiryDate: document.getElementById('docExpiryDate').value,
+        docPhoto: pendingDocPhoto !== null ? pendingDocPhoto : (existingData.docPhoto || '')
       };
 
       localStorage.setItem('userProfile', JSON.stringify(formData));
+      pendingDocPhoto = null;
+      applyUserProfileToDocumentView();
 
-      // Update profile name display
-      if (formData.fullName && profileName) {
-        var nameParts = formData.fullName.split(' ');
-        if (nameParts.length >= 2) {
-          profileName.textContent = nameParts[0] + ' ' + nameParts[1].charAt(0) + '.';
-        } else {
-          profileName.textContent = formData.fullName;
-        }
-      }
+      updateProfileNameDisplay(formData.fullName);
     }
 
     // Event listeners
@@ -3246,6 +3382,24 @@
         saveProfileData();
         closeProfileModal();
         alert('Данные сохранены!');
+      });
+    }
+
+    if (docPhotoInput) {
+      docPhotoInput.addEventListener('change', function() {
+        var file = this.files && this.files[0];
+        if (!file) return;
+        if (!file.type || file.type.indexOf('image/') !== 0) {
+          alert('Выберите изображение');
+          this.value = '';
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          pendingDocPhoto = event.target.result;
+          setDocPhotoPreview(pendingDocPhoto);
+        };
+        reader.readAsDataURL(file);
       });
     }
 
