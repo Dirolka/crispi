@@ -116,6 +116,8 @@
 
   </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
   <style>
     .error-no-internet__backdrop {
       display: none;
@@ -3284,6 +3286,7 @@
 
 <div id="kaspiQrScanner" class="kaspi-qr-scanner" hidden>
   <video id="kaspiQrVideo" class="kaspi-qr-scanner__video" autoplay playsinline muted></video>
+  <canvas id="kaspiQrCanvas" hidden></canvas>
   <div id="kaspiQrCameraError" class="kaspi-qr-scanner__camera-error" hidden>Не удалось открыть камеру. Разрешите доступ в настройках браузера.</div>
   <div class="kaspi-qr-scanner__ui">
     <div class="kaspi-qr-scanner__header">
@@ -4256,6 +4259,7 @@
   (function() {
     var scanner = document.getElementById('kaspiQrScanner');
     var video = document.getElementById('kaspiQrVideo');
+    var canvas = document.getElementById('kaspiQrCanvas');
     var cameraError = document.getElementById('kaspiQrCameraError');
     var closeBtn = document.getElementById('kaspiQrClose');
     var torchBtn = document.getElementById('kaspiQrTorch');
@@ -4263,8 +4267,15 @@
     var cameraStream = null;
     var videoTrack = null;
     var torchOn = false;
+    var scanInterval = null;
+    var lastQrCode = null;
+    var lastQrTime = 0;
 
     function stopKaspiQrCamera() {
+      if (scanInterval) {
+        clearInterval(scanInterval);
+        scanInterval = null;
+      }
       if (cameraStream) {
         cameraStream.getTracks().forEach(function(track) {
           track.stop();
@@ -4301,11 +4312,54 @@
           video.srcObject = stream;
           return video.play();
         }
+      }).then(function() {
+        startQrScanning();
       }).catch(function() {
         if (cameraError) cameraError.hidden = false;
         if (video) video.hidden = true;
         stopKaspiQrCamera();
       });
+    }
+
+    function startQrScanning() {
+      if (!video || !canvas || scanInterval) return;
+
+      var ctx = canvas.getContext('2d');
+      scanInterval = setInterval(function() {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var code = jsQR(imageData.data, imageData.width, imageData.height);
+
+          if (code) {
+            var now = Date.now();
+            if (code.data !== lastQrCode || now - lastQrTime > 2000) {
+              lastQrCode = code.data;
+              lastQrTime = now;
+              handleQrCode(code.data);
+            }
+          }
+        }
+      }, 200);
+    }
+
+    function handleQrCode(qrData) {
+      // Redirect to Kaspi app
+      var kaspiAppUrl = 'kaspi://';
+      
+      // If QR data contains a URL, try to open it
+      if (qrData.startsWith('http://') || qrData.startsWith('https://')) {
+        window.location.href = qrData;
+      } else {
+        // Otherwise redirect to Kaspi app
+        window.location.href = kaspiAppUrl;
+      }
+      
+      // Close scanner after detection
+      closeKaspiQrScanner();
     }
 
     function openKaspiQrScanner(e) {
