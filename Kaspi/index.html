@@ -406,7 +406,21 @@
       background: #fff;
     }
 
-    .identity-loading__close,
+    .identity-loading__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 28px;
+    }
+
     .identity-service-modal__close {
       display: flex;
       align-items: center;
@@ -460,7 +474,7 @@
     .identity-service-modal__content {
       min-height: 100%;
       box-sizing: border-box;
-      padding: 48px 16px 110px;
+      padding: 25px 16px 110px;
     }
 
     .identity-service-modal__tabs-wrap {
@@ -1621,7 +1635,9 @@
   <div id="publicServicesPage" class="public-services-page">
     <div class="public-services__header">
       <div class="public-services__header-row">
-        <button class="public-services__back" id="publicServicesBack" type="button">‹</button>
+        <button class="public-services__back" id="publicServicesBack" type="button">
+          <img src="image/free-icon-down-arrow-2985150.png" alt="Back" style="width: 24px; height: 24px;" />
+        </button>
         <h2 class="public-services__title">Госуслуги</h2>
       </div>
       <div class="public-services__tabs-panel">
